@@ -151,6 +151,9 @@ bpwatch start restore_cache
   done
 bpwatch stop restore_cache
 
+# Install Third Party external binaries
+source $BIN_DIR/steps/third-party-binaries
+
 set +e
 # Create set-aside `.heroku` folder.
 mkdir .heroku &> /dev/null

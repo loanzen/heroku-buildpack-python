@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+#Taken from https://github.com/jamarparris/heroku-buildpack-python-swig
+set -e
+
+# https://devcenter.heroku.com/articles/profiled#example-profile-d-path-sh
+PROFILED_PATH="$BUILD_DIR/.profile.d"
+PROFILED_SWIG_PATH="$PROFILED_PATH/swig.sh"
+mkdir -p $PROFILED_PATH
+
+# Install SWIG
+if [ ! -d $CACHE_DIR/swig ]; then
+  cd $BUILD_DIR
+  echo "-----> Fetching and installing Swig-3.0.7"
+  curl -O https://s3-ap-southeast-1.amazonaws.com/vendor-bins/swig/swig-3.0.7.tar.gz >/dev/null 2>&1
+  tar xzvf swig-3.0.7.tar.gz >/dev/null 2>&1
+  mv swig $CACHE_DIR/swig
+  rm swig-3.0.7.tar.gz
+  echo "SWIG installed" | indent
+fi
+
+mkdir -p $BUILD_DIR/.vendor_binaries
+cp -R $CACHE_DIR/swig $BUILD_DIR/.vendor_binaries
+
+echo "updating path..." | indent
+PATH=$PATH:$BUILD_DIR/.vendor_binaries/swig/bin/
+echo "updating PATH to $PATH" | indent
+export PATH
+echo "export PATH=$PATH" >> $PROFILED_SWIG_PATH
+
+SWIG_LIB=$BUILD_DIR/.vendor_binaries/swig/share/swig/3.0.7/
+echo "setting SWIG_LIB environment var to $SWIG_LIB" | indent
+export SWIG_LIB
+echo "export SWIG_LIB=$SWIG_LIB" >> $PROFILED_SWIG_PATH
+# End Install SWIG
