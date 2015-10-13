@@ -151,8 +151,8 @@ bpwatch start restore_cache
   done
 bpwatch stop restore_cache
 
-# Install Third Party external binaries
-source $BIN_DIR/steps/third-party-binaries
+# Install swig
+source $BIN_DIR/steps/swig
 
 set +e
 # Create set-aside `.heroku` folder.
@@ -188,6 +188,8 @@ source $BIN_DIR/steps/pip-install
 # Django collectstatic support.
 sub-env $BIN_DIR/steps/collectstatic
 
+#Install bower
+sub-env $BIN_DIR/steps/bower
 
 # ### Finalize
 #
