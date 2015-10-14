@@ -25,16 +25,16 @@ if [ -s .vendor_binaries ] && (grep -Fiq "swig" .vendor_binaries); then
       echo "SWIG installed" | indent
     fi
 
-    mkdir -p $BUILD_DIR/.vendor_binaries
-    cp -R $CACHE_DIR/swig $BUILD_DIR/.vendor_binaries
+    mkdir -p $BUILD_DIR/.installed_binaries
+    cp -R $CACHE_DIR/swig $BUILD_DIR/.installed_binaries
 
     echo "updating path..." | indent
-    PATH=$PATH:$BUILD_DIR/.vendor_binaries/swig/bin/
+    PATH=$PATH:$BUILD_DIR/.installed_binaries/swig/bin/
     echo "updating PATH to $PATH" | indent
     export PATH
     echo "export PATH=$PATH" >> $PROFILED_SWIG_PATH
 
-    SWIG_LIB=$BUILD_DIR/.vendor_binaries/swig/share/swig/3.0.7/
+    SWIG_LIB=$BUILD_DIR/.installed_binaries/swig/share/swig/3.0.7/
     echo "setting SWIG_LIB environment var to $SWIG_LIB" | indent
     export SWIG_LIB
     echo "export SWIG_LIB=$SWIG_LIB" >> $PROFILED_SWIG_PATH
