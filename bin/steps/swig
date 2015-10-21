@@ -18,10 +18,10 @@ if [ -s .vendor_binaries ] && (grep -Fiq "swig" .vendor_binaries); then
     if [ ! -d $CACHE_DIR/swig ]; then
       cd $BUILD_DIR
       echo "-----> Fetching and installing Swig-3.0.7"
-      curl -O https://s3-ap-southeast-1.amazonaws.com/vendor-bins/swig/swig-3.0.7.tar.gz >/dev/null 2>&1
-      tar xzvf swig-3.0.7.tar.gz >/dev/null 2>&1
+      curl -O https://s3-ap-southeast-1.amazonaws.com/vendor-bins/swig/swig-3.0.4.tar.gz >/dev/null 2>&1
+      tar xzvf swig-3.0.4.tar.gz >/dev/null 2>&1
       mv swig $CACHE_DIR/swig
-      rm swig-3.0.7.tar.gz
+      rm swig-3.0.4.tar.gz
       echo "SWIG installed" | indent
     fi
 
@@ -34,7 +34,7 @@ if [ -s .vendor_binaries ] && (grep -Fiq "swig" .vendor_binaries); then
     export PATH
     echo "export PATH=$PATH" >> $PROFILED_SWIG_PATH
 
-    SWIG_LIB=$BUILD_DIR/.installed_binaries/swig/share/swig/3.0.7/
+    SWIG_LIB=$BUILD_DIR/.installed_binaries/swig/share/swig/3.0.4/
     echo "setting SWIG_LIB environment var to $SWIG_LIB" | indent
     export SWIG_LIB
     echo "export SWIG_LIB=$SWIG_LIB" >> $PROFILED_SWIG_PATH
