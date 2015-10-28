@@ -37,11 +37,18 @@ if [ -f $BUILD_DIR/bower.json ]; then
       .heroku/vendor/node/bin/npm list -g --depth=0 | grep bower | cut -d @ -f 2 > .heroku/bower-version
     fi
 
-    PATH=$PATH:.heroku/vendor/node/bin
+    PATH=$PATH:$BUILD_DIR/.heroku/vendor/node/bin
+
+    # Install Node Packages
+    if [ -f $BUILD_DIR/package.json ]; then
+        puts-step "Running npm install"
+        npm install --prefix $BUILD_DIR 2>&1 | indent
+        export PATH=$PATH:$BUILD_DIR/node_modules/.bin
+        echo "export PATH=$PATH" >> $PROFILED_PATH_FILE
+    fi
 
     # Install bower packages
     puts-step "Running bower install"
     bower install 2>&1 | indent
-
     bpwatch stop node_bower
 fi

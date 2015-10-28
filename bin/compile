@@ -103,6 +103,11 @@ export LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.
 export LD_LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
 export PKG_CONFIG_PATH=/app/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:/app/.heroku/python/lib/pkg-config
 
+#Prepare Profile Dir
+export PROFILE_DIR="$BUILD_DIR/.profile.d"
+export PROFILED_PATH_FILE="$PROFILE_DIR/path.sh"
+mkdir -p $PROFILE_DIR
+
 # Switch to the repo's context.
 cd $BUILD_DIR
 
@@ -186,7 +191,7 @@ source $BIN_DIR/steps/gdal
 source $BIN_DIR/steps/pip-install
 
 #Install bower
-sub-env $BIN_DIR/steps/bower
+source $BIN_DIR/steps/bower
 
 # Django collectstatic support.
 sub-env $BIN_DIR/steps/collectstatic

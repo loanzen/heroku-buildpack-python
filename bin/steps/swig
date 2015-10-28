@@ -7,13 +7,6 @@ if [ -s .vendor_binaries ] && (grep -Fiq "swig" .vendor_binaries); then
 
     bpwatch start swig_install
 
-    # https://devcenter.heroku.com/articles/profiled#example-profile-d-path-sh
-    PROFILED_PATH="$BUILD_DIR/.profile.d"
-    PROFILED_SWIG_PATH="$PROFILED_PATH/swig.sh"
-    mkdir -p $PROFILED_PATH
-
-
-
     # Install SWIG
     if [ ! -d $CACHE_DIR/swig ]; then
       cd $BUILD_DIR
@@ -32,12 +25,12 @@ if [ -s .vendor_binaries ] && (grep -Fiq "swig" .vendor_binaries); then
     PATH=$PATH:$BUILD_DIR/.installed_binaries/swig/bin/
     echo "updating PATH to $PATH" | indent
     export PATH
-    echo "export PATH=$PATH" >> $PROFILED_SWIG_PATH
+    echo "export PATH=$PATH" >> $PROFILED_PATH_FILE
 
     SWIG_LIB=$BUILD_DIR/.installed_binaries/swig/share/swig/3.0.4/
     echo "setting SWIG_LIB environment var to $SWIG_LIB" | indent
     export SWIG_LIB
-    echo "export SWIG_LIB=$SWIG_LIB" >> $PROFILED_SWIG_PATH
+    echo "export SWIG_LIB=$SWIG_LIB" >> $PROFILED_PATH_FILE
     # End Install SWIG
 
     bpwatch stop swig_install
