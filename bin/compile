@@ -100,6 +100,12 @@ export LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.
 export LD_LIBRARY_PATH=/app/.heroku/vendor/lib:$BUILD_DIR/.heroku/vendor/lib:/app/.heroku/python/lib
 export PKG_CONFIG_PATH=/app/.heroku/vendor/lib/pkg-config:$BUILD_DIR/.heroku/vendor/lib/pkg-config:/app/.heroku/python/lib/pkg-config
 
+if [ -s $ENV_DIR/REQUIREMENT_FILE ]; then
+    export REQUIREMENT_FILE="$(cat $ENV_DIR/REQUIREMENT_FILE)"
+else
+    export REQUIREMENT_FILE="requirements.txt"
+fi
+
 #Prepare Profile Dir
 export PROFILE_DIR="$BUILD_DIR/.profile.d"
 export PROFILED_PATH_FILE="$PROFILE_DIR/path.sh"
