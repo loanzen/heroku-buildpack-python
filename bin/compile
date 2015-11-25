@@ -160,6 +160,7 @@ bpwatch start restore_cache
     cp -R $CACHE_DIR/.heroku/python-version .heroku/ &> /dev/null || true
     cp -R $CACHE_DIR/.heroku/vendor .heroku/ &> /dev/null || true
     cp -R $CACHE_DIR/.heroku/venv .heroku/ &> /dev/null || true
+    cp -R $CACHE_DIR/.heroku/node-version .heroku/ &> /dev/null || true
 
 bpwatch stop restore_cache
 
@@ -233,6 +234,7 @@ bpwatch start dump_cache
   rm -rf $CACHE_DIR/.heroku/python-stack
   rm -rf $CACHE_DIR/.heroku/vendor
   rm -rf $CACHE_DIR/.heroku/venv
+  rm -rf $CACHE_DIR/.heroku/node-version
 
   mkdir -p $CACHE_DIR/.heroku
   cp -R .heroku/python $CACHE_DIR/.heroku/
@@ -240,6 +242,7 @@ bpwatch start dump_cache
   cp -R .heroku/python-stack $CACHE_DIR/.heroku/ &> /dev/null || true
   cp -R .heroku/vendor $CACHE_DIR/.heroku/ &> /dev/null || true
   cp -R .heroku/venv $CACHE_DIR/.heroku/ &> /dev/null || true
+  cp -R .heroku/node-version $CACHE_DIR/.heroku/ || true
 
 bpwatch stop dump_cache
 
