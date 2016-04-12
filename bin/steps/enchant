@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+
+bpwatch start enchant_install
+
+
+if (pip-grep -s requirements.txt pyenchant &> /dev/null) then
+
+    echo "-----> Noticed pyenchant. installing enchant C lib."
+    apt-get download enchant;  dpkg -i --force-not-root --root=.heroku/vendor/ enhant.deb
+fi
+
+bpwatch stop enchant_install
